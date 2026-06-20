@@ -10,7 +10,6 @@ const GameContainer = () => {
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
-    // Check if user was previously verified in this session
     const savedWallet = sessionStorage.getItem('verifiedWallet');
     const savedBalance = sessionStorage.getItem('tokenBalance');
 
@@ -44,7 +43,7 @@ const GameContainer = () => {
       {showModal && !isVerified && (
         <TokenVerificationModal
           onVerificationSuccess={handleVerificationSuccess}
-          onClose={() => {}} // Modal cannot be closed without verification
+          onClose={() => {}}
         />
       )}
 

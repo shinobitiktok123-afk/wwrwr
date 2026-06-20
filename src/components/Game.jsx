@@ -10,12 +10,10 @@ const Game = ({ walletAddress, tokenBalance }) => {
   const [playerPos, setPlayerPos] = useState({ x: 50, y: 80 });
   const [gameTime, setGameTime] = useState(0);
 
-  // Initialize game
   useEffect(() => {
     spawnEnemies();
   }, []);
 
-  // Game loop
   useEffect(() => {
     if (!gameActive) return;
 
@@ -118,31 +116,18 @@ const Game = ({ walletAddress, tokenBalance }) => {
         </div>
       </div>
 
-      <div
-        className="game-canvas"
-        onMouseMove={handleMouseMove}
-        onClick={handleShoot}
-      >
+      <div className="game-canvas" onMouseMove={handleMouseMove} onClick={handleShoot}>
         {enemies.map(enemy => (
           <div
             key={enemy.id}
             className={`enemy ${enemy.type}`}
-            style={{
-              left: `${enemy.x}%`,
-              top: `${enemy.y}%`,
-            }}
+            style={{ left: `${enemy.x}%`, top: `${enemy.y}%` }}
           >
             {enemy.type === 'boss' ? '👿' : '👾'}
           </div>
         ))}
 
-        <div
-          className="player"
-          style={{
-            left: `${playerPos.x}%`,
-            top: `${playerPos.y}%`,
-          }}
-        >
+        <div className="player" style={{ left: `${playerPos.x}%`, top: `${playerPos.y}%` }}>
           🎯
         </div>
 

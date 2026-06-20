@@ -1,9 +1,4 @@
-.game-container {
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(135deg, #0f0f1e 0%, #1a1a3e 100%);
-  color: #fff;
-}
+.game-container { width: 100%; height: 100%; background: linear-gradient(135deg, #0f0f1e 0%, #1a1a3e 100%); color: #fff; }
 
 .game-header {
   background: linear-gradient(135deg, rgba(0, 212, 255, 0.1) 0%, rgba(138, 43, 226, 0.1) 100%);
@@ -15,12 +10,7 @@
   box-shadow: 0 4px 15px rgba(0, 212, 255, 0.1);
 }
 
-.header-content {
-  display: flex;
-  align-items: center;
-  gap: 30px;
-  flex: 1;
-}
+.header-content { display: flex; align-items: center; gap: 30px; flex: 1; }
 
 .game-header h1 {
   margin: 0;
@@ -41,27 +31,9 @@
   border: 1px solid rgba(0, 212, 255, 0.2);
 }
 
-.wallet-label {
-  color: #888;
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.wallet-address {
-  color: #00d4ff;
-  font-family: 'Courier New', monospace;
-  font-weight: 600;
-}
-
-.token-balance {
-  color: #33ff77;
-  font-weight: 700;
-  font-size: 14px;
-  background: rgba(51, 255, 119, 0.1);
-  padding: 4px 10px;
-  border-radius: 6px;
-}
+.wallet-label { color: #888; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+.wallet-address { color: #00d4ff; font-family: 'Courier New', monospace; font-weight: 600; }
+.token-balance { color: #33ff77; font-weight: 700; font-size: 14px; background: rgba(51, 255, 119, 0.1); padding: 4px 10px; border-radius: 6px; }
 
 .logout-btn {
   padding: 10px 20px;
@@ -83,24 +55,8 @@
 }
 
 @media (max-width: 768px) {
-  .game-header {
-    flex-direction: column;
-    gap: 15px;
-    padding: 15px;
-  }
-
-  .header-content {
-    flex-direction: column;
-    width: 100%;
-    gap: 15px;
-  }
-
-  .wallet-info {
-    flex-wrap: wrap;
-    width: 100%;
-  }
-
-  .logout-btn {
-    width: 100%;
-  }
+  .game-header { flex-direction: column; gap: 15px; padding: 15px; }
+  .header-content { flex-direction: column; width: 100%; gap: 15px; }
+  .wallet-info { flex-wrap: wrap; width: 100%; }
+  .logout-btn { width: 100%; }
 }
