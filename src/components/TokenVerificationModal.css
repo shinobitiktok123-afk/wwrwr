@@ -1,0 +1,359 @@
+.token-verification-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  backdrop-filter: blur(4px);
+  animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.token-verification-modal {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  border: 2px solid #00d4ff;
+  border-radius: 20px;
+  padding: 40px;
+  max-width: 500px;
+  width: 90%;
+  box-shadow: 0 0 40px rgba(0, 212, 255, 0.3), 0 0 80px rgba(138, 43, 226, 0.2);
+  animation: slideUp 0.4s ease-out;
+  position: relative;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  color: #00d4ff;
+  font-size: 32px;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.modal-close-btn:hover {
+  background: rgba(0, 212, 255, 0.2);
+  transform: rotate(90deg);
+}
+
+.modal-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.modal-header h1 {
+  font-size: 28px;
+  margin: 0;
+  background: linear-gradient(135deg, #00d4ff, #8a2be2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 10px;
+}
+
+.modal-header p {
+  color: #00d4ff;
+  margin: 0;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.modal-content {
+  margin-bottom: 20px;
+}
+
+.verification-info {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.info-box {
+  background: rgba(0, 212, 255, 0.1);
+  border: 1px solid rgba(0, 212, 255, 0.3);
+  border-radius: 10px;
+  padding: 15px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.info-box:hover {
+  background: rgba(0, 212, 255, 0.2);
+  border-color: rgba(0, 212, 255, 0.6);
+}
+
+.info-label {
+  display: block;
+  font-size: 12px;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 5px;
+}
+
+.info-value {
+  display: block;
+  font-size: 16px;
+  font-weight: bold;
+  color: #00d4ff;
+}
+
+.verification-form {
+  margin-top: 25px;
+}
+
+.input-group {
+  margin-bottom: 20px;
+}
+
+.input-group label {
+  display: block;
+  font-size: 14px;
+  color: #00d4ff;
+  margin-bottom: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.input-wrapper {
+  display: flex;
+  gap: 8px;
+  align-items: stretch;
+}
+
+.wallet-input {
+  flex: 1;
+  padding: 12px 15px;
+  background: rgba(0, 0, 0, 0.5);
+  border: 2px solid rgba(0, 212, 255, 0.3);
+  border-radius: 10px;
+  color: #fff;
+  font-size: 14px;
+  font-family: 'Courier New', monospace;
+  transition: all 0.3s ease;
+}
+
+.wallet-input:focus {
+  outline: none;
+  border-color: #00d4ff;
+  background: rgba(0, 212, 255, 0.1);
+  box-shadow: 0 0 15px rgba(0, 212, 255, 0.2);
+}
+
+.wallet-input:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.paste-btn {
+  padding: 12px 15px;
+  background: rgba(0, 212, 255, 0.2);
+  border: 2px solid rgba(0, 212, 255, 0.3);
+  border-radius: 10px;
+  color: #00d4ff;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.paste-btn:hover:not(:disabled) {
+  background: rgba(0, 212, 255, 0.4);
+  border-color: #00d4ff;
+}
+
+.paste-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.alert {
+  padding: 12px 15px;
+  border-radius: 10px;
+  font-size: 14px;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-10px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.alert-error {
+  background: rgba(255, 68, 68, 0.2);
+  border: 1px solid rgba(255, 68, 68, 0.5);
+  color: #ff6b6b;
+}
+
+.alert-success {
+  background: rgba(51, 255, 119, 0.2);
+  border: 1px solid rgba(51, 255, 119, 0.5);
+  color: #33ff77;
+}
+
+.verification-details {
+  background: rgba(138, 43, 226, 0.1);
+  border: 1px solid rgba(138, 43, 226, 0.3);
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 15px;
+}
+
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  font-size: 14px;
+  color: #ccc;
+}
+
+.detail-row:not(:last-child) {
+  border-bottom: 1px solid rgba(138, 43, 226, 0.2);
+  margin-bottom: 8px;
+}
+
+.detail-row strong {
+  color: #00d4ff;
+  font-weight: 600;
+}
+
+.detail-row .verified {
+  color: #33ff77;
+  font-weight: 700;
+}
+
+.detail-row .unverified {
+  color: #ff6b6b;
+  font-weight: 700;
+}
+
+.verify-btn {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(135deg, #00d4ff, #8a2be2);
+  border: none;
+  border-radius: 10px;
+  color: #000;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.verify-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0, 212, 255, 0.4);
+}
+
+.verify-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(0, 0, 0, 0.3);
+  border-top-color: #000;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.modal-footer {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.security-note {
+  font-size: 12px;
+  color: #888;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.security-note strong {
+  color: #33ff77;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .token-verification-modal {
+    padding: 25px;
+    border-radius: 15px;
+  }
+
+  .modal-header h1 {
+    font-size: 22px;
+  }
+
+  .verification-info {
+    grid-template-columns: 1fr;
+  }
+
+  .input-wrapper {
+    flex-direction: column;
+  }
+
+  .paste-btn {
+    width: 100%;
+  }
+}

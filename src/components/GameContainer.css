@@ -1,0 +1,106 @@
+.game-container {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #0f0f1e 0%, #1a1a3e 100%);
+  color: #fff;
+}
+
+.game-header {
+  background: linear-gradient(135deg, rgba(0, 212, 255, 0.1) 0%, rgba(138, 43, 226, 0.1) 100%);
+  border-bottom: 2px solid rgba(0, 212, 255, 0.3);
+  padding: 20px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 15px rgba(0, 212, 255, 0.1);
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  flex: 1;
+}
+
+.game-header h1 {
+  margin: 0;
+  font-size: 28px;
+  background: linear-gradient(135deg, #00d4ff, #8a2be2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.wallet-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: rgba(0, 212, 255, 0.1);
+  padding: 10px 15px;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 212, 255, 0.2);
+}
+
+.wallet-label {
+  color: #888;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.wallet-address {
+  color: #00d4ff;
+  font-family: 'Courier New', monospace;
+  font-weight: 600;
+}
+
+.token-balance {
+  color: #33ff77;
+  font-weight: 700;
+  font-size: 14px;
+  background: rgba(51, 255, 119, 0.1);
+  padding: 4px 10px;
+  border-radius: 6px;
+}
+
+.logout-btn {
+  padding: 10px 20px;
+  background: linear-gradient(135deg, rgba(255, 68, 68, 0.2), rgba(138, 43, 226, 0.2));
+  border: 1px solid rgba(255, 68, 68, 0.5);
+  border-radius: 8px;
+  color: #ff6b6b;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.logout-btn:hover {
+  background: linear-gradient(135deg, rgba(255, 68, 68, 0.4), rgba(138, 43, 226, 0.3));
+  border-color: #ff6b6b;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(255, 68, 68, 0.2);
+}
+
+@media (max-width: 768px) {
+  .game-header {
+    flex-direction: column;
+    gap: 15px;
+    padding: 15px;
+  }
+
+  .header-content {
+    flex-direction: column;
+    width: 100%;
+    gap: 15px;
+  }
+
+  .wallet-info {
+    flex-wrap: wrap;
+    width: 100%;
+  }
+
+  .logout-btn {
+    width: 100%;
+  }
+}
