@@ -1,114 +1,74 @@
-import { Connection, PublicKey, clusterApiUrl } from '@solana/web3.js';
-import { getAssociatedTokenAddress, getAccount } from '@solana/spl-token';
-import { TOKEN_CONFIG, formatTokenAmount } from '../config/tokenConfig';
+import { Connection, PublicKey, clusterApiUrl } from '@solana/web3.js'
+import { getAssociatedTokenAddress, getAccount } from '@solana/spl-token'
 
-// Initialize Solana connection
+const TOKEN_MINT = import.meta.env.VITE_MEMECOIN_TOKEN_ADDRESS || 'EPjFWaYPg7DuBjwBa8V9CGAcsVUFhLupa2GT2t8MN6j'
+const MIN_TOKENS = 200000n
+const DECIMALS = 6
+
 const connection = new Connection(
-  TOKEN_CONFIG.rpcUrl || clusterApiUrl(TOKEN_CONFIG.network),
+  import.meta.env.VITE_SOLANA_RPC_URL || clusterApiUrl('mainnet-beta'),
   'confirmed'
-);
+)
 
-/**
- * Verify Solana wallet and check token balance
- * @param {string} walletAddress - The wallet address to verify
- * @returns {Promise<Object>} - Balance info and verification status
- */
-export const verifyWalletAndCheckBalance = async (walletAddress) => {
+export async function verifyWallet(walletAddress) {
   try {
-    // Validate wallet address format
-    let publicKey;
+    let publicKey
     try {
-      publicKey = new PublicKey(walletAddress);
-    } catch (error) {
+      publicKey = new PublicKey(walletAddress)
+    } catch (e) {
       return {
-        success: false,
-        error: 'Invalid Solana wallet address format',
         verified: false,
         balance: '0',
-      };
+        message: '❌ Invalid wallet address',
+      }
     }
 
-    // Verify wallet exists
-    const walletInfo = await connection.getAccountInfo(publicKey);
+    const walletInfo = await connection.getAccountInfo(publicKey)
     if (!walletInfo) {
       return {
-        success: false,
-        error: 'Wallet address not found on the blockchain',
         verified: false,
         balance: '0',
-      };
+        message: '❌ Wallet not found on blockchain',
+      }
     }
 
-    // Get token mint address
-    const tokenMintPublicKey = new PublicKey(TOKEN_CONFIG.tokenMintAddress);
+    try {
+      const tokenMint = new PublicKey(TOKEN_MINT)
+      const ataAddress = await getAssociatedTokenAddress(tokenMint, publicKey)
+      const tokenAccount = await getAccount(connection, ataAddress)
+      
+      const balance = tokenAccount.amount
+      const isVerified = balance >= MIN_TOKENS
 
-    // Get associated token account
-    const associatedTokenAddress = await getAssociatedTokenAddress(
-      tokenMintPublicKey,
-      publicKey
-    );
+      const displayBalance = (Number(balance) / Math.pow(10, DECIMALS)).toFixed(2)
+      const displayMinimum = (Number(MIN_TOKENS) / Math.pow(10, DECIMALS)).toFixed(0)
 
-    // Get token account info
-    const tokenAccountInfo = await connection.getAccountInfo(associatedTokenAddress);
-    
-    if (!tokenAccountInfo) {
+      if (isVerified) {
+        return {
+          verified: true,
+          balance: displayBalance,
+          message: `✅ Verified! You hold ${displayBalance} tokens`,
+        }
+      } else {
+        return {
+          verified: false,
+          balance: displayBalance,
+          message: `❌ Need ${displayMinimum} tokens, you have ${displayBalance}`,
+        }
+      }
+    } catch (e) {
       return {
-        success: true,
-        error: null,
         verified: false,
         balance: '0',
-        message: 'No token account found. This wallet does not hold any of this token.',
-      };
+        message: '❌ No token account found. You need to hold tokens first.',
+      }
     }
-
-    // Get token balance
-    const parsedTokenAccount = await getAccount(connection, associatedTokenAddress);
-    const tokenBalance = parsedTokenAccount.amount;
-    const minimumRequired = TOKEN_CONFIG.minimumTokenBalance;
-
-    const isVerified = tokenBalance >= minimumRequired;
-    const formattedBalance = formatTokenAmount(tokenBalance);
-    const formattedMinimum = formatTokenAmount(minimumRequired);
-
-    return {
-      success: true,
-      error: null,
-      verified: isVerified,
-      balance: formattedBalance,
-      rawBalance: tokenBalance.toString(),
-      minimumRequired: formattedMinimum,
-      message: isVerified
-        ? `✅ Verified! You hold ${formattedBalance} tokens (${formattedMinimum} required)`
-        : `❌ Insufficient balance. You hold ${formattedBalance} tokens but need at least ${formattedMinimum}`,
-    };
   } catch (error) {
-    console.error('Wallet verification error:', error);
+    console.error('Verification error:', error)
     return {
-      success: false,
-      error: `Error verifying wallet: ${error.message}`,
       verified: false,
       balance: '0',
-    };
+      message: '❌ Error verifying wallet',
+    }
   }
-};
-
-/**
- * Get wallet SOL balance
- * @param {string} walletAddress - The wallet address
- * @returns {Promise<number>} - SOL balance
- */
-export const getSolBalance = async (walletAddress) => {
-  try {
-    const publicKey = new PublicKey(walletAddress);
-    const balance = await connection.getBalance(publicKey);
-    return balance / 1e9; // Convert lamports to SOL
-  } catch (error) {
-    console.error('Error fetching SOL balance:', error);
-    return 0;
-  }
-};
-
-/**
- * Get connection instance
- */
-export const getConnection = () => connection;
+}
